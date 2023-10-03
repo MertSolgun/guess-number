@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sayi Tahmin</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+  </head>
+      <body>
+        <div class="guees">
+          <div class="guess-container">
+            <form action="" id="guessForm">
+              <h1>Sayı Tahmin Oyunu</h1>
+              <p>Bir sayı tahmin et... (1,100)</p>
+              <input
+                type="number"
+                id="guessInput"
+                name="number"
+                min="1"
+                max="100"
+                required
+              />
+              <button type="submit" id="submitBtn">Guess</button>
+            </form>
+            <div class="guess-info">
+                <div id="result"></div>
+                <div id="sayac"></div>
+            </div>
+          </div>
+        </div>
+      </body>
+    </html>
+    <script>
+const randomNumber = Math.floor(Math.random() * 100) + 1;
+const guessForm = document.getElementById("guessForm");
+const guessInput = document.getElementById("guessInput");
+const result = document.getElementById("result");
+const sayac = document.getElementById("sayac")
+const info = document.querySelector(".guess-info ")
+
+
+let guessCount = 0
+
+
+
+
+guessForm.addEventListener("submit", function (event) {
+  event.preventDefault(); // sayfa yenilenmemesi icin
+  guessCount++; 
+
+  const guessNumber = parseInt(guessInput.value); // inputa girilen degeri aliyoruz
+
+  if (guessNumber < 1 || guessNumber > 100 || isNaN(guessNumber)) {
+    result.textContent = "Hatalı Sayı";
+
+  } else if (guessNumber === randomNumber) {
+    result.textContent = `Sayıyı ${guessCount} seferde bildiniz Sayı: ${randomNumber}`;
+    info.style.display = "flex"
+
+    guessCount = 0;
+  }
+  else if (guessNumber < randomNumber){
+    result.textContent = "Daha büyük tahmin ediniz"
+    info.style.display = "flex"
+
+  }
+  else if (guessNumber > randomNumber){
+    result.textContent = "Daha küçük tahmin ediniz"
+    info.style.display = "flex"
+
+  }
+  else {
+    result.textContent = `Sayıyı bilemediniz `;
+    info.style.display = "flex"
+
+  }
+
+  sayac.textContent = `Tahmin: ${guessCount}`
+  guessInput.value = ""; 
+});
+
+
+    </script>
+  </body>
+</html>
